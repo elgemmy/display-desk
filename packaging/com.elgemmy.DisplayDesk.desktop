@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Display Desk
+Comment=Arrange displays and remember your desks
+Exec=display-desk
+Icon=com.elgemmy.DisplayDesk
+Terminal=false
+Categories=Settings;HardwareSettings;
+Keywords=monitor;screen;display;niri;layout;
+StartupNotify=true
+StartupWMClass=com.elgemmy.DisplayDesk

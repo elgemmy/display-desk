@@ -1,0 +1,20 @@
+# Local runtime data and private review artifacts
+review/
+.local/
+profiles*.json
+pending.json
+backups/
+*.kdl
+*.log
+.env
+.env.*
+
+# Generated builds, packages, and Python bytecode
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.deb
+*.buildinfo
+*.changes

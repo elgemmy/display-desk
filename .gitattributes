@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.png binary
+*.svg text
+/review export-ignore
+/dist export-ignore
+/build export-ignore

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Display Desk — Automatic restore
+Comment=Restore saved display profiles when monitors reconnect
+Exec=display-desk --watch
+Icon=com.elgemmy.DisplayDesk
+Terminal=false
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

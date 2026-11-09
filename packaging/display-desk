@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+"""Launch the desktop UI or the GTK-free display restore watcher."""
+import os
+import sys
+from pathlib import Path
+
+APP_DIR = Path("/usr/share/display-desk")
+
+if "--version" in sys.argv:
+    print("Display Desk " + (APP_DIR / "VERSION").read_text().strip())
+    sys.exit(0)
+
+if "--watch" in sys.argv and not os.environ.get("NIRI_SOCKET"):
+    sys.exit(0)
+
+script = "backend.py" if "--watch" in sys.argv else "app.py"
+os.execv("/usr/bin/python3", [
+    "/usr/bin/python3", str(APP_DIR / script), *sys.argv[1:]
+])

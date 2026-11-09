@@ -1,0 +1,40 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install desktop validation and runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y desktop-file-utils python3-gi gir1.2-gtk-4.0 gir1.2-adw-1
+      - name: Check system GTK bindings
+        run: |
+          /usr/bin/python3 - <<'PY'
+          import gi
+          gi.require_version("Gtk", "4.0")
+          gi.require_version("Adw", "1")
+          from gi.repository import Adw, Gtk
+          assert (Gtk.get_major_version(), Gtk.get_minor_version()) >= (4, 12)
+          assert (Adw.get_major_version(), Adw.get_minor_version()) >= (1, 5)
+          PY
+      - name: Run backend and package tests
+        run: /usr/bin/python3 -m unittest -v test_backend.py test_packaging.py
+      - name: Build package
+        run: /usr/bin/python3 scripts/build_deb.py
+      - name: Upload Debian package
+        uses: actions/upload-artifact@v4
+        with:
+          name: display-desk-deb
+          path: dist/*.deb
+          if-no-files-found: error
